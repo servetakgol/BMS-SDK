@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Battery Manager SDK</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<style>
+  /* Layout: one engineering-drawing style figure with a title block; ink on paper, one muted accent. */
+  :root {
+    --paper: #f7f7f5;
+    --sheet: #ffffff;
+    --ink: #1c2126;
+    --ink-2: #5a6470;
+    --rule: #9aa3ad;
+    --accent: #2f5f8a;
+    --accent-tint: #edf2f7;
+    --accent-tint-2: #f6f8fb;
+    --font-ui: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Source Serif 4", Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #101316; --sheet: #171b20; --ink: #e8ebee; --ink-2: #9aa4ae; --rule: #4b555f;
+      --accent: #7fb0dc; --accent-tint: #1b2733; --accent-tint-2: #141d26; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #101316; --sheet: #171b20; --ink: #e8ebee; --ink-2: #9aa4ae; --rule: #4b555f;
+    --accent: #7fb0dc; --accent-tint: #1b2733; --accent-tint-2: #141d26; color-scheme: dark;
+  }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.45; }
+  .wrap { max-width: 1500px; margin: 0 auto; padding-block: 32px 48px; padding-inline: 20px; display: grid; gap: 16px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+  header h1 { margin: 0; font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 32px); font-weight: 600; letter-spacing: -0.005em; }
+  header .k { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+  .sheet { background: var(--sheet); border: 1px solid var(--rule); overflow-x: auto; padding: 18px; }
+  .sheet svg { display: block; width: 100%; height: auto; min-width: 1040px; }
+  svg text { font-family: var(--font-ui); fill: var(--ink); font-size: 15px; }
+  svg text.small { font-size: 12.5px; fill: var(--ink-2); }
+  svg text.col { font-size: 11px; fill: var(--ink-2); font-weight: 600; letter-spacing: 0.16em; }
+  svg text.tab { font-size: 11px; fill: var(--sheet); font-weight: 700; letter-spacing: 0.16em; }
+  svg text.tb { font-size: 11px; fill: var(--ink-2); letter-spacing: 0.12em; }
+  svg text.tbv { font-size: 13px; fill: var(--ink); font-weight: 600; }
+  svg .box { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.3; }
+  svg .sdk { fill: var(--accent-tint-2); stroke: var(--accent); stroke-width: 1.8; }
+  svg .sdk-inner { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 1.3; }
+  svg .tabfill { fill: var(--accent); }
+  svg .arrow { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+  svg .mk path { fill: var(--ink); }
+  svg .frame { fill: none; stroke: var(--rule); stroke-width: 1; }
+  svg .tbline { stroke: var(--rule); stroke-width: 1; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Battery Manager SDK</h1>
+    <span class="k">System architecture · Firmware</span>
+  </header>
+
+  <div class="sheet">
+<svg viewBox="0 0 1460 700" role="img" aria-label="Battery Manager SDK system architecture">
+  <defs>
+    <marker id="mk" class="mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
+
+  <!-- Drawing frame -->
+  <rect class="frame" x="10" y="10" width="1440" height="680"/>
+
+  <!-- Column headers -->
+  <text class="col" x="100" y="48" text-anchor="middle">HARDWARE</text>
+  <text class="col" x="400" y="48" text-anchor="middle">ABSTRACTION</text>
+  <text class="col" x="705" y="48" text-anchor="middle">DRIVERS</text>
+
+  <!-- Hardware -->
+  <rect class="box" x="30" y="300" width="140" height="70"/>
+  <text x="100" y="340" text-anchor="middle">Hardware</text>
+
+  <!-- HAL -->
+  <rect class="box" x="200" y="290" width="180" height="90"/>
+  <text x="290" y="320" text-anchor="middle">Hardware</text>
+  <text x="290" y="340" text-anchor="middle">abstraction layer</text>
+  <text class="small" x="290" y="364" text-anchor="middle">UART · SPI · CAN · timers</text>
+
+  <!-- PAL -->
+  <rect class="box" x="410" y="290" width="180" height="90"/>
+  <text x="500" y="320" text-anchor="middle">Platform</text>
+  <text x="500" y="340" text-anchor="middle">abstraction layer</text>
+  <text class="small" x="500" y="364" text-anchor="middle">UART · SPI · CAN · timers</text>
+
+  <!-- Drivers column -->
+  <rect class="box" x="620" y="66" width="170" height="60"/>
+  <text x="705" y="101" text-anchor="middle">Monitoring IC driver</text>
+
+  <rect class="box" x="620" y="154" width="170" height="60"/>
+  <text x="705" y="189" text-anchor="middle">Fuel gauge IC driver</text>
+
+  <rect class="box" x="620" y="242" width="170" height="60"/>
+  <text x="705" y="267" text-anchor="middle">Contactor /</text>
+  <text x="705" y="287" text-anchor="middle">MOSFET driver</text>
+
+  <rect class="box" x="620" y="330" width="170" height="60"/>
+  <text x="705" y="365" text-anchor="middle">User button / LEDs</text>
+
+  <rect class="box" x="620" y="418" width="170" height="60"/>
+  <text x="705" y="443" text-anchor="middle">Current sensors</text>
+  <text x="705" y="463" text-anchor="middle">CAN or shunt</text>
+
+  <rect class="box" x="620" y="506" width="170" height="60"/>
+  <text x="705" y="541" text-anchor="middle">Telemetry module</text>
+
+  <!-- BMS SDK region with label tab -->
+  <rect class="sdk" x="840" y="66" width="590" height="500"/>
+  <rect class="tabfill" x="840" y="48" width="96" height="18"/>
+  <text class="tab" x="888" y="61" text-anchor="middle">BMS SDK</text>
+
+  <!-- Connectors (inside the SDK) -->
+  <rect class="sdk-inner" x="868" y="90" width="150" height="452"/>
+  <text x="943" y="300" text-anchor="middle">Connectors</text>
+  <text class="small" x="943" y="324" text-anchor="middle">monitoring IC</text>
+  <text class="small" x="943" y="342" text-anchor="middle">current sensing</text>
+  <text class="small" x="943" y="360" text-anchor="middle">contactors</text>
+
+  <!-- SDK modules -->
+  <rect class="box" x="1070" y="90" width="330" height="54"/>
+  <text x="1235" y="113" text-anchor="middle">State identifier</text>
+  <text class="small" x="1235" y="133" text-anchor="middle">charge · discharge · idle · precharge · error</text>
+
+  <rect class="box" x="1070" y="156" width="330" height="54"/>
+  <text x="1235" y="189" text-anchor="middle">Chemistry and configuration manager</text>
+
+  <rect class="box" x="1070" y="222" width="330" height="54"/>
+  <text x="1235" y="255" text-anchor="middle">SoC / SoH / capacity estimator</text>
+
+  <rect class="box" x="1070" y="288" width="330" height="54"/>
+  <text x="1235" y="321" text-anchor="middle">Fault management engine</text>
+
+  <rect class="box" x="1070" y="354" width="330" height="54"/>
+  <text x="1235" y="377" text-anchor="middle">Data fusion and acquisition</text>
+  <text class="small" x="1235" y="397" text-anchor="middle">main and auxiliary data</text>
+
+  <rect class="box" x="1070" y="420" width="330" height="54"/>
+  <text x="1235" y="453" text-anchor="middle">Protection notifier engine</text>
+
+  <rect class="box" x="1070" y="486" width="330" height="54"/>
+  <text x="1235" y="519" text-anchor="middle">Balancer</text>
+
+  <!-- Arrows -->
+  <line class="arrow" x1="170" y1="335" x2="198" y2="335" marker-end="url(#mk)"/>
+  <line class="arrow" x1="380" y1="335" x2="408" y2="335" marker-end="url(#mk)"/>
+  <line class="arrow" x1="590" y1="335" x2="618" y2="335" marker-end="url(#mk)"/>
+  <line class="arrow" x1="790" y1="316" x2="866" y2="316" marker-end="url(#mk)"/>
+  <line class="arrow" x1="1018" y1="316" x2="1068" y2="316" marker-end="url(#mk)"/>
+
+  <!-- Title block (engineering drawing convention) -->
+  <line class="tbline" x1="10" y1="610" x2="1450" y2="610"/>
+  <line class="tbline" x1="440" y1="610" x2="440" y2="690"/>
+  <line class="tbline" x1="900" y1="610" x2="900" y2="690"/>
+  <line class="tbline" x1="1180" y1="610" x2="1180" y2="690"/>
+  <line class="tbline" x1="1320" y1="610" x2="1320" y2="690"/>
+
+  <text class="tb" x="26" y="634">TITLE</text>
+  <text class="tbv" x="26" y="660">Battery Manager SDK — system architecture</text>
+
+  <text class="tb" x="456" y="634">SCOPE</text>
+  <text class="small" x="456" y="656">Hardware-specific code stays left of the SDK.</text>
+  <text class="small" x="456" y="674">Products differ only in connectors and configuration.</text>
+
+  <text class="tb" x="916" y="634">PRODUCTS</text>
+  <text class="tbv" x="916" y="660">DroneX-Heavy · B2C</text>
+
+  <text class="tb" x="1196" y="634">TEAM</text>
+  <text class="tbv" x="1196" y="660">Firmware</text>
+
+  <text class="tb" x="1336" y="634">REV · DATE</text>
+  <text class="tbv" x="1336" y="660">A · 2026-10-14</text>
+</svg>
+  </div>
+</div>
+
+</body>
+</html>
